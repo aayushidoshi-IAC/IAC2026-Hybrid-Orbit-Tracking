@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-08-24T04:41:44.174390+00:00",
+  "source_week1_bundle": "IAC2026_FINAL_WEEK1_bundle.zip",
+  "cohort_file": "starlink_30_object_cohort_WEEK1B.csv",
+  "object_split": {
+    "TRAIN": 18,
+    "VALIDATION": 6,
+    "TEST": 6
+  },
+  "test_shells": [
+    "43deg",
+    "53deg",
+    "70deg",
+    "97deg"
+  ],
+  "historical_replay_window": {
+    "quiet": "2022-02-08",
+    "moderate": "2022-01-30",
+    "storm": "2022-02-04"
+  },
+  "atmosphere_model": "NRLMSISE-00 via pymsis",
+  "space_weather_inputs": "historical F10.7 and Ap via pymsis/CelesTrak",
+  "drag_coefficient": 2.2,
+  "area_to_mass_m2_kg": 0.02,
+  "dynamics_dt_seconds": 60.0,
+  "duration_hours": 24,
+  "selected_sigma_a_km_s2": 3e-08,
+  "measurement_sigma_km": 0.5,
+  "test_objects_used_for_tracking": false,
+  "scientific_note": "Historical forcing replay: current frozen Starlink orbital initial conditions are exposed to observed historical space-weather conditions; this is not an exact reconstruction of the 2022 Starlink trajectories."
+}
