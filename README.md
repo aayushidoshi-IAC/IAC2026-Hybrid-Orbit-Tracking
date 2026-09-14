@@ -1,4 +1,3 @@
-# IAC2026-Hybrid-Orbit-Tracking
 # IAC 2026 — Hybrid AI-Augmented Orbit Tracking
 
 Code, frozen experiment configuration, trained-model artifacts, numerical results, and reproducibility materials associated with:
