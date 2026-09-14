@@ -16,7 +16,7 @@ This repository contains the final computational workflow used to evaluate a phy
 
 The central question of the study is whether a small recurrent model can improve a properly tuned physics-based estimator when the estimator is exposed to structured atmospheric-drag mismatch and sparse observations.
 
-The implemented framework retains orbital dynamics and recursive measurement assimilation inside the EKF. The GRU does not replace the orbit propagator or modify the EKF covariance. Instead, it receives recent estimator and environmental history and predicts only the remaining three-component position residual in the local radial-transverse-normal (RTN) frame.
+The EKF remains the primary state estimator and orbit propagator. The GRU does not replace the orbital dynamics, modify the EKF covariance, or alter future EKF propagation. Instead, it uses recent estimator and environmental history to predict the remaining three-component position residual in the local radial-transverse-normal (RTN) frame.
 
 ---
 
@@ -34,13 +34,11 @@ The final benchmark combines:
 
 The experiment uses a controlled historical environmental replay. The Starlink orbital geometries and historical space-weather dates are not contemporaneous and therefore should not be interpreted as reconstructions of the exact spacecraft trajectories on those dates.
 
-The reference trajectories and tracking observations are simulated. This study is therefore a physically informed LEO proxy benchmark rather than direct operational radar or debris-tracking validation.
+The reference trajectories and tracking observations are simulated. This study should therefore be interpreted as a physically informed LEO proxy benchmark rather than direct operational radar or debris-tracking validation.
 
 ---
 
 ## Final Hybrid Architecture
-
-The final model uses:
 
 | Component | Configuration |
 |---|---|
@@ -177,9 +175,9 @@ The `manifests/` directory contains frozen machine-readable records of the exper
 
 The `models/` directory contains the retained GRU weights and the corresponding feature and target scalers used in the locked evaluation.
 
-The `results/` directory includes scenario-level results as well as object-level, weather-level, observation-regime, shell, tail-error, clustered, and leave-one-object-out summaries.
+The `results/` directory includes calibration outputs, validation outputs, scenario-level locked-test results, object-level results, weather and observation-regime summaries, shell summaries, tail-error metrics, cluster-level analysis, and leave-one-object-out robustness results.
 
-`FINAL_RESULTS_SUMMARY.json` contains a compact machine-readable record of the locked final-test configuration and headline results.
+`results/FINAL_RESULTS_SUMMARY.json` contains a compact machine-readable record of the locked final-test configuration and headline results.
 
 ---
 
@@ -191,3 +189,59 @@ To install the principal dependencies in another Python environment:
 
 ```bash
 pip install -r requirements.txt
+```
+
+The principal packages are:
+
+- NumPy
+- pandas
+- SciPy
+- Matplotlib
+- scikit-learn
+- SGP4
+- PyMSIS
+- Astropy
+- joblib
+- PyTorch
+
+---
+
+## Important Interpretation Boundaries
+
+The following limitations should be considered when interpreting the benchmark:
+
+- historical space weather is replayed on frozen Starlink orbital geometries rather than reconstructing contemporaneous historical trajectories;
+- the drag coefficient and area-to-mass ratio are representative benchmark assumptions rather than measured object-specific aerodynamic properties;
+- tracking measurements are simulated noisy Cartesian positions rather than raw radar range/azimuth/elevation or optical observations;
+- the reference model does not contain object-specific attitude dynamics, time-varying ballistic coefficient, maneuvers, atmospheric winds, solar-radiation pressure, or mass evolution;
+- the final evaluation uses held-out Starlink orbital geometries as a controlled LEO proxy and does not constitute direct Iridium/Cosmos debris validation.
+
+---
+
+## Data Provenance
+
+Orbital initial conditions are derived from a frozen public CelesTrak Supplemental GP / OMM Starlink snapshot archived with the experiment.
+
+Historical F10.7 and Ap forcing is obtained through the PyMSIS/CelesTrak historical space-weather interface and used with NRLMSISE-00 to calculate atmospheric mass density.
+
+The archived snapshot and reproducibility manifests are included so that the experiment does not depend on a future re-download of a changing orbital catalog.
+
+---
+
+## Citation
+
+If you use this repository, please cite the associated IAC 2026 paper:
+
+> *Hybrid AI-Augmented Framework for High-Fidelity Tracking of Non-Cooperative Objects*  
+> 77th International Astronautical Congress (IAC 2026), Antalya, Türkiye, 5–9 October 2026.  
+> Paper ID: IAC-26,A6,9,8,x109530.
+
+A machine-readable `CITATION.cff` file will be added with the final publication metadata.
+
+---
+
+## Status
+
+This repository represents the frozen experiment associated with the IAC 2026 manuscript.
+
+The repository is being finalized prior to public release. The locked final-test artifacts should remain unchanged apart from documentation, packaging, and reproducibility improvements that do not alter the reported experiment.
