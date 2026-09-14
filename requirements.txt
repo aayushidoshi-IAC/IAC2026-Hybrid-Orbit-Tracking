@@ -1,0 +1,10 @@
+numpy
+pandas
+matplotlib
+scipy
+scikit-learn
+sgp4>=2.25
+pymsis>=0.12.0
+astropy>=6.0
+joblib
+torch
