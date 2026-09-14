@@ -1,0 +1,75 @@
+{
+  "created_utc": "2026-08-28T01:12:49.338850+00:00",
+  "status": "LOCKED_FINAL_TEST_COMPLETE",
+  "source_week2a_bundle": "IAC2026_FINAL_WEEK2A_bundle.zip",
+  "verified_frozen_hashes": {
+    "model/week2a_RTN_GRU.pt": "b3e486ec844faf6db1fa5393627b57d758b25dd91a7b4e76181b7b93754b323d",
+    "model/week2a_feature_scaler.joblib": "fdff61a83d2049ce5be0533c180b331dc116b6ee66b1126ab61fd550c52fe41e",
+    "model/week2a_target_scaler.joblib": "b823678c061598cf36c08f1455309a02ed97ed8419c7b430040e40930dce7bf9",
+    "week2a_reproducibility_manifest.json": "5b6314f9749458b6026d6868a49dc74daa5838e4719bcce3e0918b7c8be5e3cd",
+    "week1b_source/data/starlink_30_object_cohort_WEEK1B.csv": "c43e41d24cb7f27aa825bc993a5b3c6d74a5bbbb58ff139d74478d5fa1aa885a",
+    "week1b_source/week1_source/data/starlink_supgp_snapshot.json": "2da6910e90a50f93492c6031c427b794065c2dce0beadd937a01aa36d831505d"
+  },
+  "n_test_objects": 6,
+  "n_test_weather_days": 6,
+  "n_final_scenarios": 108,
+  "n_object_weather_clusters": 36,
+  "test_weather_days": {
+    "quiet": [
+      "2025-12-08",
+      "2025-09-19"
+    ],
+    "moderate": [
+      "2025-03-18",
+      "2025-07-08"
+    ],
+    "storm": [
+      "2025-11-12",
+      "2025-06-01"
+    ]
+  },
+  "frozen_sigma_a_km_s2": 3e-08,
+  "frozen_feature_names": [
+    "elapsed_fraction",
+    "time_since_last_obs_min",
+    "observation_cadence_min",
+    "last_nis_scaled",
+    "f107_scaled",
+    "ap_scaled",
+    "log10_density",
+    "altitude_scaled",
+    "speed_scaled",
+    "last_innovation_R_scaled",
+    "last_innovation_T_scaled",
+    "last_innovation_N_scaled"
+  ],
+  "frozen_seq_len": 12,
+  "frozen_hidden_size": 16,
+  "frozen_dropout": 0.2,
+  "mean_rmse_km": {
+    "sgp4": 84.1445818529268,
+    "tuned_ekf": 1.9714007817223875,
+    "hybrid": 0.5591938164111825
+  },
+  "hybrid_rmse_reduction_pct": 71.63469642521791,
+  "scenario_win_rate": 0.7407407407407407,
+  "cluster_paired_gain_km": 1.412206965311205,
+  "cluster_paired_gain_ci95_km": [
+    0.6752022960586791,
+    2.149211634563731
+  ],
+  "cluster_ttest_p": 0.0004286743654395129,
+  "cluster_wilcoxon_one_sided_p": 1.0616306099109352e-05,
+  "positive_cluster_fraction": 0.75,
+  "positive_object_fraction": 0.6666666666666666,
+  "leave_one_object_out_improvement_range_pct": [
+    56.23261970108238,
+    73.66817260330552
+  ],
+  "limitations": [
+    "Historical weather replay is applied to frozen 2026 Starlink orbital geometries.",
+    "Cd and area-to-mass ratio are representative rather than known for each spacecraft.",
+    "Measurements are noisy Cartesian positions rather than raw radar/optical observations.",
+    "NRLMSISE-00 density is evaluated along the nominal fly-through and interpolated into truth propagation."
+  ]
+}
