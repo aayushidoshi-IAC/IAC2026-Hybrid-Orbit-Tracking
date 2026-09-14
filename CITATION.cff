@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated IAC 2026 work using the metadata below."
+
+title: "IAC 2026 — Hybrid AI-Augmented Orbit Tracking"
+
+authors:
+  - family-names: "Doshi"
+    given-names: "Aayushi"
+  - family-names: "Salmaso"
+    given-names: "Marco"
+  - family-names: "Valenzuela Beltran"
+    given-names: "Cosette"
+
+repository-code: "https://github.com/aayushidoshi-IAC/IAC2026-Hybrid-Orbit-Tracking"
+
+keywords:
+  - orbit determination
+  - space situational awareness
+  - extended Kalman filter
+  - gated recurrent unit
+  - machine learning
+  - atmospheric drag
+  - space weather
+  - Starlink
+  - low Earth orbit
+
+references:
+  - type: conference-paper
+    authors:
+      - family-names: "Doshi"
+        given-names: "Aayushi"
+      - family-names: "Salmaso"
+        given-names: "Marco"
+      - family-names: "Valenzuela Beltran"
+        given-names: "Cosette"
+    title: "Hybrid AI-Augmented Framework for High-Fidelity Tracking of Non-Cooperative Objects"
+    collection-title: "77th International Astronautical Congress (IAC 2026)"
