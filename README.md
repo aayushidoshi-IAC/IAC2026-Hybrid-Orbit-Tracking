@@ -90,3 +90,104 @@ IAC2026-Hybrid-Orbit-Tracking/
 │
 └── figures/
     └── Calibration, validation, and final-test figures
+
+
+---
+
+## Notebook Workflow
+
+### 1. Week 1b — Physical Drag and Real Space Weather
+
+`notebooks/IAC_2026_FINAL_Week1b_RealSpaceWeather.ipynb`
+
+This notebook establishes the final physics benchmark by replacing the earlier synthetic drag-like disturbance with:
+
+**historical F10.7 + Ap → NRLMSISE-00 density → physical atmospheric drag**
+
+It also freezes the corrected 18/6/6 TRAIN/VALIDATION/TEST object split and calibrates the EKF process-noise setting using training and validation objects only.
+
+No GRU training or final-test evaluation is performed at this stage.
+
+### 2. Week 2a — GRU Development and Validation
+
+`notebooks/IAC_2026_FINAL_Week2a_RealWeather_GRU_Development.ipynb`
+
+This notebook develops and freezes the RTN residual-correction GRU.
+
+Model development uses:
+
+- 18 TRAIN spacecraft;
+- 6 VALIDATION spacecraft;
+- training space weather from 2021–2023;
+- validation space weather from 2024;
+- three predefined observation regimes.
+
+The final six TEST spacecraft and 2025 final-test weather conditions remain untouched during model development.
+
+The trained GRU, feature scaler, target scaler, and reproducibility manifest are saved for the locked evaluation.
+
+### 3. Week 2b — Locked Final Test
+
+`notebooks/IAC_2026_FINAL_Week2b_LOCKED_FINAL_TEST.ipynb`
+
+This notebook performs the frozen held-out evaluation using:
+
+- 6 previously untouched TEST spacecraft;
+- 6 previously unused 2025 historical space-weather days;
+- 3 fixed observation regimes.
+
+This produces **108 final scenarios**.
+
+The model architecture, feature definitions, scalers, process-noise configuration, object assignments, observation schedules, and trained network weights are frozen before this evaluation.
+
+**The final-test notebook should not be used for model tuning or architecture selection after observing the test results.**
+
+---
+
+## Locked Final-Test Results
+
+Across all 108 held-out scenarios:
+
+| Method | Mean 3D Position RMSE |
+|---|---:|
+| SGP4 open-loop baseline | 84.145 km |
+| Tuned Cartesian EKF | 1.971 km |
+| Hybrid EKF + RTN GRU | **0.559 km** |
+
+The Hybrid reduced aggregate mean RMSE relative to the tuned EKF by **71.63%**.
+
+The descriptive scenario-level Hybrid win rate was **74.1%**.
+
+### Sparse-Observation Performance
+
+For the observation regime containing a four-hour measurement blackout:
+
+| Metric | Tuned EKF | Hybrid | Reduction |
+|---|---:|---:|---:|
+| Full 24-h trajectory containing blackout | 3.216 km | 0.861 km | 73.22% |
+| Actual 10–14 h outage interval only | 7.159 km | 1.514 km | **78.85%** |
+
+The outage-only metric quantifies estimator behavior specifically while measurements are unavailable.
+
+---
+
+## Reproducibility Files
+
+The `manifests/` directory contains frozen machine-readable records of the experiment configuration.
+
+The `models/` directory contains the retained GRU weights and the corresponding feature and target scalers used in the locked evaluation.
+
+The `results/` directory includes scenario-level results as well as object-level, weather-level, observation-regime, shell, tail-error, clustered, and leave-one-object-out summaries.
+
+`FINAL_RESULTS_SUMMARY.json` contains a compact machine-readable record of the locked final-test configuration and headline results.
+
+---
+
+## Installation
+
+The notebooks were developed for Python and Google Colab.
+
+To install the principal dependencies in another Python environment:
+
+```bash
+pip install -r requirements.txt
