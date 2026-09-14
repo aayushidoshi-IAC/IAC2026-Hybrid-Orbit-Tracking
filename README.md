@@ -245,3 +245,7 @@ A machine-readable `CITATION.cff` file will be added with the final publication 
 This repository represents the frozen experiment associated with the IAC 2026 manuscript.
 
 The repository is being finalized prior to public release. The locked final-test artifacts should remain unchanged apart from documentation, packaging, and reproducibility improvements that do not alter the reported experiment.
+
+## License
+
+Original code in this repository is released under the MIT License. Third-party data and source materials remain subject to their respective provider terms.
